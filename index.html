@@ -1,0 +1,168 @@
+<html>
+    <head>
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+    </head>
+    <style>
+        body {
+            font-family: sans-serif;
+            font-size: 27px;
+        }
+
+        .title {
+            font-weight: bold;
+        }
+
+        ul {
+            padding: 5px 20px;
+            margin: 0;
+        }
+
+        li {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            margin-top: 3px;
+        }
+
+        .state {
+            width: 20px;
+            height: 20px;
+            border: 1px solid;
+            margin-left: 10px;
+        }
+
+        .true { background-color: green;}
+        .false { background-color: red;}
+    </style>
+    <body>
+        <div id="app">
+            <ul v-for="datum in store.data">
+                <li class="title">{{ datum.name }}</li>
+                <li v-for="item in datum.items">
+                    <div>{{item.name}}</div> <div @click="store.change(item)" class="state" :class="{ true: item.state, false: item.state === false }"></div>
+                </li>
+            </ul>
+        </div>
+
+        <script>
+          const { createApp, ref, reactive } = Vue
+
+          const store = reactive({
+            change(item) {
+                if (item.state === null) {
+                    item.state = true;
+                    return;
+                }
+
+                if (item.state) {
+                    item.state = false;
+                    return;
+                }
+
+                item.state = null;
+            },
+            data: [
+                {
+                    name: 'Кто?',
+                    items: [
+                        {
+                            name: 'Грин',
+                            state: null
+                        },
+                        {
+                            name: 'Мастард',
+                            state: null
+                        },
+                        
+                        {
+                            name: 'Пикок',
+                            state: null
+                        },
+                        {
+                            name: 'Плам',
+                            state: null
+                        },
+                        {
+                            name: 'Скарлет',
+                            state: null
+                        },
+                    ]
+                },
+                {
+                    name: 'Чем?',
+                    items: [
+                        {   
+                            name: 'Подсвечник',
+                            state: null
+                        },
+                        {
+                            name: 'Кинжал',
+                            state: null
+                        },
+                        {
+                            name: 'Револьвер',
+                            state: null
+                        },
+                        {   
+                            name: 'Веревка',
+                            state: null
+                        },
+                        {
+                            name: 'Гаечный ключ',
+                            state: null
+                        },
+                    ]
+                },
+                {
+                    name: 'Где?',
+                    items: [
+                        {   
+                            name: 'Бальный зал',
+                            state: null
+                        },
+                        {
+                            name: 'Бильярдная',
+                            state: null
+                        },
+                        {
+                            name: 'Зимний сад',
+                            state: null
+                        },
+                        {   
+                            name: 'Столовая',
+                            state: null
+                        },
+                        {
+                            name: 'Ванная',
+                            state: null
+                        },
+                        {   
+                            name: 'Кухня',
+                            state: null
+                        },
+                        {
+                            name: 'Библиотека',
+                            state: null
+                        },
+                        {
+                            name: 'Гостиная',
+                            state: null
+                        },
+                        {   
+                            name: 'Кабинет',
+                            state: null
+                        }
+                    ]
+                }
+            ]})
+          createApp({
+            setup() {
+              return {
+                store
+              }
+            }
+          }).mount('#app')
+        </script>
+    </body>
+</html>
